@@ -69,7 +69,6 @@ class Item:
         """ clear all items from cls
         after clearing fill items from csv file with field name, price and quantity"""
         cls.all = []
-        print(" NOW PATH IS ", os.getcwd())
         with open(CSV_FILE_NAME, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
