@@ -1,6 +1,6 @@
 import csv
 import math
-import os
+# import os
 
 from constant.constants import CSV_FILE_NAME
 
@@ -27,6 +27,9 @@ class Item:
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.name},{self.price},{self.quantity})"
+
+    def __str__(self):
+        return f"({self.name} with price {self.price}. amount = {self.quantity})"
 
     def calculate_total_price(self) -> float:
         """
@@ -62,12 +65,12 @@ class Item:
         if len(new_name) < 11:
             self.__name = new_name
         else:
-            raise ValueError("too many characters in name. it must be less than 10")
+            raise ValueError("too many characters in name. it must be less than 11")
 
     @classmethod
     def instantiate_from_csv(cls):
         """ clear all items from cls
-        after clearing fill items from csv file with field name, price and quantity"""
+        after clearing we are going fill items from csv file with fields 'name', 'price' and 'quantity'"""
         cls.all = []
         with open(CSV_FILE_NAME, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
@@ -76,5 +79,5 @@ class Item:
 
     @staticmethod
     def string_to_number(some_string):
-        """ Convert string to number with truncation all after dot """
+        """ Convert string to number with truncation all digits after dot """
         return math.trunc(float(some_string))
