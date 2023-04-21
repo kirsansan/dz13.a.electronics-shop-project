@@ -1,4 +1,6 @@
+import pytest
 
+from src.item import Item
 
 def test_init_item(get_test_item, get_test_all):
     assert get_test_item.price == 5
@@ -25,3 +27,21 @@ def test_set_discount(get_test_item):
     new_item.set_discount(0.3)      # now we have been changing
     new_item.apply_discount()
     assert new_item.price == 2
+
+def test_naming(get_test_item):
+    new_item = get_test_item
+    assert new_item.name == "NAME1"
+    new_item.name = "NAME_100"
+    assert new_item.name == "NAME_100"
+    with pytest.raises(Exception):
+        new_item.name = "NAME_WITH_LONG_STRING"
+
+def test_string_to_number():
+    assert Item.string_to_number('5') == 5
+    assert Item.string_to_number('5.0') == 5
+    assert Item.string_to_number('5.5') == 5
+
+def test_instantiate_from_csv():
+    Item.instantiate_from_csv()
+    assert len(Item.all) == 5
+    assert repr(Item.all) == "[Item(Смартфон,100,1), Item(Ноутбук,1000,3), Item(Кабель,10,5), Item(Мышка,50,5), Item(Клавиатура,75,5)]"

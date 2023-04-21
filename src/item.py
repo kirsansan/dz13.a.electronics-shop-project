@@ -1,5 +1,6 @@
 import csv
 import math
+import os
 
 from constant.constants import CSV_FILE_NAME
 
@@ -48,9 +49,9 @@ class Item:
         """set the discount for all items"""
         cls.pay_rate = new_discount
 
-    @classmethod
-    def discount(cls):
-        return cls.pay_rate
+    # @classmethod
+    # def discount(cls):
+    #     return cls.pay_rate
 
     @property
     def name(self):
@@ -60,12 +61,15 @@ class Item:
     def name(self, new_name):
         if len(new_name) < 11:
             self.__name = new_name
+        else:
+            raise ValueError("too many characters in name. it must be less than 10")
 
     @classmethod
     def instantiate_from_csv(cls):
         """ clear all items from cls
         after clearing fill items from csv file with field name, price and quantity"""
         cls.all = []
+        print(" NOW PATH IS ", os.getcwd())
         with open(CSV_FILE_NAME, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
