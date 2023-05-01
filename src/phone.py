@@ -12,9 +12,6 @@ class Phone(Item):
         tmp_str = tmp_str.replace(")", f", {self.number_of_sim})")
         return tmp_str
 
-    # def __add__(self, other):
-    #     if isinstance(other, self.__class__) or type(other) == type(self):
-    #         return self.quantity + other.quantity
 
 
     @property
@@ -26,4 +23,4 @@ class Phone(Item):
         if new_number > 0:
             self.__number_of_sim = new_number
         else:
-            raise ValueError("invalid number of SIM. it must be more then 0")
+            raise ValueError("invalid number of SIM. it must be more than 0")

@@ -10,7 +10,7 @@ def test_init_item(get_test_item, get_test_all):
 
 
 def test_print_all(get_test_all):
-    assert repr(get_test_all) == "[Item('NAME1', 5, 8), Item('NAME_not1', 500, 10)]"
+    assert repr(get_test_all) == """[Item('NAME1', 5, 8), Item('NAME_not1', 500, 10), Phone('iPhone 14', 120000, 5, 2), KeyBoard('Dark Project KD87A', 9600, 5)]"""
 
 
 def test_print(get_test_item):
