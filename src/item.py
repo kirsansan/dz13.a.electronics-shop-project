@@ -2,6 +2,7 @@ import csv
 import math
 # import os
 
+
 from constant.constants import CSV_FILE_NAME
 
 
@@ -30,6 +31,11 @@ class Item:
 
     def __str__(self):
         return f"{self.name}"
+ 
+    def __add__(self, other):
+        if isinstance(other, self.__class__) or type(other) == type(self):
+            return self.quantity + other.quantity
+
 
     def calculate_total_price(self) -> float:
         """
@@ -51,10 +57,6 @@ class Item:
     def set_discount(cls, new_discount):
         """set the discount for all items"""
         cls.pay_rate = new_discount
-
-    # @classmethod
-    # def discount(cls):
-    #     return cls.pay_rate
 
     @property
     def name(self):
