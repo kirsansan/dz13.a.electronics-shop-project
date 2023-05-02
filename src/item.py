@@ -84,9 +84,8 @@ class Item:
                 except KeyError:
                     raise InstantiateCSVError("item.csv file is corrupted")
         except FileNotFoundError:
-            print("file items.csv does not exist or bad directory")
-        except InstantiateCSVError as e:
-            print(e.message)
+            raise FileNotFoundError("file items.csv does not exist or bad directory")
+
 
     @staticmethod
     def string_to_number(some_string):
