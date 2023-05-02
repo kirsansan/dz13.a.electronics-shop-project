@@ -10,17 +10,15 @@ def test_init_phone(get_test_phone):
 def test_add_phone_and_item(get_test_phone, get_test_item, get_test_keyboard):
     assert get_test_item + get_test_phone == 13
     assert get_test_phone + get_test_phone == 10
-    assert get_test_phone + get_test_keyboard == None
-    assert get_test_keyboard + get_test_item == None
+    assert get_test_phone + get_test_keyboard == 10
+    assert get_test_keyboard + get_test_item == 13
 
 
 def test_incorrect_number_of_sim(get_test_phone):
     get_test_phone.number_of_sim = 5
     assert get_test_phone.number_of_sim == 5
-
     with pytest.raises(Exception):
         get_test_phone.number_of_sim = 0
-
     try:
         get_test_phone.number_of_sim = 0
     except ValueError as e:

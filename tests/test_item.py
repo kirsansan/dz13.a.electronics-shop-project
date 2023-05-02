@@ -55,3 +55,12 @@ def test_instantiate_from_csv():
     assert len(Item.all) == 5
     assert repr(
         Item.all) == """[Item('Смартфон', 100, 1), Item('Ноутбук', 1000, 3), Item('Кабель', 10, 5), Item('Мышка', 50, 5), Item('Клавиатура', 75, 5)]"""
+
+def test_add_subclass(get_test_item):
+    assert get_test_item + get_test_item == 16
+    with pytest.raises(ValueError):
+        get_test_item + 5
+    try:
+        get_test_item + 8
+    except ValueError as e:
+        assert str(e) == str(ValueError('You must sum only object of classes Item and its subclasses'))

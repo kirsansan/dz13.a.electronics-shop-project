@@ -33,8 +33,11 @@ class Item:
         return f"{self.name}"
  
     def __add__(self, other):
-        if isinstance(other, self.__class__) or type(other) == type(self):
+        condition1: bool = issubclass(type(other), type(self))
+        condition2: bool = issubclass(type(self), type(other))
+        if  condition1 or condition2:
             return self.quantity + other.quantity
+        raise ValueError('You must sum only object of classes Item and its subclasses')
 
 
     def calculate_total_price(self) -> float:
