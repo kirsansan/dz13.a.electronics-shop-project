@@ -1,6 +1,7 @@
 import csv
 import math
-# import os
+from abc import ABC, abstractmethod
+
 
 
 from constant.constants import CSV_FILE_NAME
@@ -12,6 +13,7 @@ class Item:
     """
     pay_rate = 1.0
     all: list = []
+    classes_allowed_to_summ = []    # must be appended subclasses object if they want to allow for summ with Item
 
     def __init__(self, name: str, price: float, quantity: int) -> None:
         """
@@ -25,6 +27,15 @@ class Item:
         self.price = price
         self.quantity = quantity
         self.all.append(self)
+        # self.__set_allow_summ()
+
+    @abstractmethod
+    def __set_allow_summ(self):
+        """ fill type(subclass) to Item.classes_allowed_to_summ
+            if subclass want be able to sum with Item elements this method need to be rewrite as
+            'if type(self) not in Item.classes_allowed_to_summ:
+                Item.classes_allowed_to_summ.append(type(self))'"""
+        pass
 
     def __repr__(self):
         return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
@@ -33,9 +44,15 @@ class Item:
         return f"{self.name}"
  
     def __add__(self, other):
-        condition1: bool = issubclass(type(other), type(self))
-        condition2: bool = issubclass(type(self), type(other))
-        if  condition1 or condition2:
+        """ conditions for adding is
+        1. both object have type Item
+        or
+        2. other is subclass of Item and allow (have rights) to summ"""
+        # condition1: bool = issubclass(type(other), type(self))
+        # condition2: bool = issubclass(type(self), type(other))
+        condition3 = type(other) in Item.classes_allowed_to_summ
+        condition4 = type(other) == type(self)
+        if condition3 or condition4:
             return self.quantity + other.quantity
         raise ValueError('You must sum only object of classes Item and its subclasses')
 
@@ -86,3 +103,8 @@ class Item:
     def string_to_number(some_string):
         """ Convert string to number with truncation all digits after dot """
         return math.trunc(float(some_string))
+
+
+if __name__ == '__main__':
+    i = Item("snikers", 2, 50)
+    print(i.classes_allowed_to_summ)

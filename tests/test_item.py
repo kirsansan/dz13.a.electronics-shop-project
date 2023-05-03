@@ -56,7 +56,7 @@ def test_instantiate_from_csv():
     assert repr(
         Item.all) == """[Item('Смартфон', 100, 1), Item('Ноутбук', 1000, 3), Item('Кабель', 10, 5), Item('Мышка', 50, 5), Item('Клавиатура', 75, 5)]"""
 
-def test_add_subclass(get_test_item):
+def test_add_subclass(get_test_item, get_test_keyboard):
     assert get_test_item + get_test_item == 16
     with pytest.raises(ValueError):
         get_test_item + 5
@@ -64,3 +64,7 @@ def test_add_subclass(get_test_item):
         get_test_item + 8
     except ValueError as e:
         assert str(e) == str(ValueError('You must sum only object of classes Item and its subclasses'))
+    with pytest.raises(ValueError):             # because keyboard is subclass of Item but not allowed for summ
+        get_test_item + get_test_keyboard
+    with pytest.raises(ValueError):
+        get_test_keyboard + get_test_item
