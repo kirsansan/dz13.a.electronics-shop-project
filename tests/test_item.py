@@ -10,7 +10,8 @@ def test_init_item(get_test_item, get_test_all):
 
 
 def test_print_all(get_test_all):
-    assert repr(get_test_all) == """[Item('NAME1', 5, 8), Item('NAME_not1', 500, 10), Phone('iPhone 14', 120000, 5, 2), KeyBoard('Dark Project KD87A', 9600, 5)]"""
+    assert repr(
+        get_test_all) == """[Item('NAME1', 5, 8), Item('NAME_not1', 500, 10), Phone('iPhone 14', 120000, 5, 2), KeyBoard('Dark Project KD87A', 9600, 5)]"""
 
 
 def test_print(get_test_item):
@@ -56,6 +57,7 @@ def test_instantiate_from_csv():
     assert repr(
         Item.all) == """[Item('Смартфон', 100, 1), Item('Ноутбук', 1000, 3), Item('Кабель', 10, 5), Item('Мышка', 50, 5), Item('Клавиатура', 75, 5)]"""
 
+
 def test_instantiate_from_bad_csv_file(get_non_exist_file_name, get_corrupted_file):
     with pytest.raises(FileNotFoundError):
         Item.instantiate_from_csv(path=get_non_exist_file_name)
@@ -71,6 +73,7 @@ def test_instantiate_from_bad_csv_file(get_non_exist_file_name, get_corrupted_fi
         assert str(e) == 'item.csv file is corrupted'
     assert len(Item.all) == 0
     assert Item.all == []
+
 
 def test_add_subclass(get_test_item):
     assert get_test_item + get_test_item == 16

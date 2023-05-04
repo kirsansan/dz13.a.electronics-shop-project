@@ -4,4 +4,3 @@ from src.change_lang import ChangeLangMixin
 
 class KeyBoard(ChangeLangMixin, Item):
     pass
-

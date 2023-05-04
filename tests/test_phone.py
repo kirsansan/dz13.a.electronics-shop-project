@@ -1,4 +1,6 @@
 import pytest
+
+
 def test_init_phone(get_test_phone):
     assert get_test_phone.price == 120_000
     assert get_test_phone.quantity == 5

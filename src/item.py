@@ -29,14 +29,13 @@ class Item:
 
     def __str__(self):
         return f"{self.name}"
- 
+
     def __add__(self, other):
         condition1: bool = issubclass(type(other), type(self))
         condition2: bool = issubclass(type(self), type(other))
-        if  condition1 or condition2:
+        if condition1 or condition2:
             return self.quantity + other.quantity
         raise ValueError('You must sum only object of classes Item and its subclasses')
-
 
     def calculate_total_price(self) -> float:
         """
@@ -85,7 +84,6 @@ class Item:
                     raise InstantiateCSVError("item.csv file is corrupted")
         except FileNotFoundError:
             raise FileNotFoundError("file items.csv does not exist or bad directory")
-
 
     @staticmethod
     def string_to_number(some_string):
