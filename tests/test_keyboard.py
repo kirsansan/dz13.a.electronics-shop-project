@@ -10,6 +10,7 @@ def test_keyboard_change_lang(get_test_keyboard):
     get_test_keyboard.change_lang().change_lang()
     assert str(get_test_keyboard.language) == "RU"
 
+
 def test_keyboard_incorrect_set_lang(get_test_keyboard):
     try:
         get_test_keyboard.language = "US"
@@ -17,6 +18,3 @@ def test_keyboard_incorrect_set_lang(get_test_keyboard):
         assert str(e) == "can't set attribute 'language'"
     # it's strange but is task we have to handle other message
     # AttributeError: property 'language' of 'KeyBoard' object has no setter
-
-
-

@@ -8,7 +8,6 @@ item2_for_test = Item(name='NAME_not1', price=500, quantity=10)
 item1_for_test.pay_rate = 0.1
 
 
-
 @pytest.fixture
 def get_test_item():
     return item1_for_test
@@ -26,6 +25,7 @@ kb_for_test = KeyBoard('Dark Project KD87A', 9600, 5)
 @pytest.fixture
 def get_test_phone():
     return phone1_for_test
+
 
 @pytest.fixture
 def get_test_keyboard():

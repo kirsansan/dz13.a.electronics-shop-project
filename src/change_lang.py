@@ -8,7 +8,9 @@ class ChangeLangMixin:
         self.__lang = "EN"
 
     def change_lang(self):
-        """Change the language from LANG_LIST to anything non-equal to the current language"""
+        """Change the language from LANG_LIST
+        to anything non-equal to the current language
+        """
         for challenger in LANG_LIST:
             if self.__lang != challenger:
                 self.__lang = challenger

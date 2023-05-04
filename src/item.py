@@ -1,8 +1,6 @@
 import csv
 import math
-from abc import ABC, abstractmethod
-
-
+from abc import abstractmethod
 
 from constant.constants import CSV_FILE_NAME
 
@@ -13,7 +11,7 @@ class Item:
     """
     pay_rate = 1.0
     all: list = []
-    classes_allowed_to_summ = []    # must be appended subclasses object if they want to allow for summ with Item
+    classes_allowed_to_summ: type = []  # must be appended subclasses object if they want to allow for summ with Item
 
     def __init__(self, name: str, price: float, quantity: int) -> None:
         """
@@ -32,7 +30,7 @@ class Item:
     @abstractmethod
     def __set_allow_summ(self):
         """ fill type(subclass) to Item.classes_allowed_to_summ
-            if subclass want be able to sum with Item elements this method need to be rewrite as
+            if subclass want to be able to sum with Item elements this method need to be rewrite as
             'if type(self) not in Item.classes_allowed_to_summ:
                 Item.classes_allowed_to_summ.append(type(self))'"""
         pass
@@ -42,7 +40,7 @@ class Item:
 
     def __str__(self):
         return f"{self.name}"
- 
+
     def __add__(self, other):
         """ conditions for adding is
         1. both object have type Item
@@ -55,7 +53,6 @@ class Item:
         if condition3 or condition4:
             return self.quantity + other.quantity
         raise ValueError('You must sum only object of classes Item and its subclasses')
-
 
     def calculate_total_price(self) -> float:
         """
