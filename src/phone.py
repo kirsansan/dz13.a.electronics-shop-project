@@ -14,7 +14,9 @@ class Phone(Item):
         return tmp_str
 
     def __add__(self, other):
-        if type(other) is type(self) or type(other) in self.classes_allowed_to_summ:
+        print("other", type(other))
+        print("allowed", Item.classes_allowed_to_summ)
+        if type(other) is type(self) or type(other) in Item.classes_allowed_to_summ or type(other) is Item:
             return self.quantity + other.quantity
         raise ValueError('You must sum only object of classes Item and Phone')
 

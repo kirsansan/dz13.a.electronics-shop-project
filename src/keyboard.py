@@ -2,7 +2,7 @@ from src.item import Item
 from src.change_lang import ChangeLangMixin
 
 
-class KeyBoard(ChangeLangMixin, Item):
+class KeyBoard(Item, ChangeLangMixin):
     def __set_allow_summ(self):
         """ fill type(subclass) to Item.classes_allowed_to_summ
             if subclass want be able to sum with Item elements this method need to be rewrite as

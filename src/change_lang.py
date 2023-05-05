@@ -3,8 +3,7 @@ from constant.constants import LANG_LIST
 
 class ChangeLangMixin:
 
-    def __init__(self, name: str, price: float, quantity: int):
-        super().__init__(name, price, quantity)
+    def __init__(self):
         self.__lang = "EN"
 
     def change_lang(self):
