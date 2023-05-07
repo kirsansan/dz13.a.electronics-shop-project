@@ -22,9 +22,6 @@ def test_add_phone_and_item(get_test_phone, get_test_item, get_test_keyboard):
 def test_incorrect_number_of_sim(get_test_phone):
     get_test_phone.number_of_sim = 5
     assert get_test_phone.number_of_sim == 5
-    with pytest.raises(Exception):
+    with pytest.raises(Exception) as e:
         get_test_phone.number_of_sim = 0
-    try:
-        get_test_phone.number_of_sim = 0
-    except ValueError as e:
-        assert str(e) == str(ValueError('invalid number of SIM. it must be more than 0'))
+    assert str(e) == str(ValueError("<ExceptionInfo ValueError('invalid number of SIM. it must be more than 0') tblen=2>"))
