@@ -61,10 +61,10 @@ def test_instantiate_from_csv():
 def test_instantiate_from_bad_csv_file(get_non_exist_file_name, get_corrupted_file):
     with pytest.raises(FileNotFoundError) as e:
         Item.instantiate_from_csv(path=get_non_exist_file_name)
-    assert str(e) == 'file items.csv does not exist or bad directory'
+    assert str(e) == "<ExceptionInfo FileNotFoundError('file items.csv does not exist or bad directory') tblen=2>"
     with pytest.raises(InstantiateCSVError) as e:
         Item.instantiate_from_csv(path=get_corrupted_file)
-    assert str(e) == 'item.csv file is corrupted'
+    assert str(e) == "<ExceptionInfo InstantiateCSVError('item.csv file is corrupted') tblen=2>"
     assert len(Item.all) == 0
     assert Item.all == []
 
