@@ -9,3 +9,4 @@ class KeyBoard(Item, ChangeLangMixin):
             'if type(self) not in Item.classes_allowed_to_summ:
                 Item.classes_allowed_to_summ.append(type(self))'"""
         pass
+

@@ -1,5 +1,6 @@
 import pytest
 from src.item import Item
+from src.csv_error import InstantiateCSVError
 
 
 def test_init_item(get_test_item, get_test_all):
@@ -58,6 +59,25 @@ def test_instantiate_from_csv():
 
 
 def test_add_subclass(get_test_item, get_test_keyboard):
+
+def test_instantiate_from_bad_csv_file(get_non_exist_file_name, get_corrupted_file):
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv(path=get_non_exist_file_name)
+    try:
+        Item.instantiate_from_csv(path=get_non_exist_file_name)
+    except FileNotFoundError as e:
+        assert str(e) == 'file items.csv does not exist or bad directory'
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv(path=get_corrupted_file)
+    try:
+        Item.instantiate_from_csv(path=get_corrupted_file)
+    except InstantiateCSVError as e:
+        assert str(e) == 'item.csv file is corrupted'
+    assert len(Item.all) == 0
+    assert Item.all == []
+
+
+def test_add_subclass(get_test_item):
     assert get_test_item + get_test_item == 16
     with pytest.raises(ValueError) as e:
         get_test_item + 5

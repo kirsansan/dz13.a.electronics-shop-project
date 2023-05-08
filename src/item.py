@@ -3,6 +3,7 @@ import math
 from abc import abstractmethod
 
 from constant.constants import CSV_FILE_NAME
+from src.csv_error import InstantiateCSVError
 
 
 class Item:
@@ -88,14 +89,20 @@ class Item:
             raise ValueError("too many characters in name. it must be less than 11")
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls, path=CSV_FILE_NAME):
         """ clear all items from cls
         after clearing we are going fill items from csv file with fields 'name', 'price' and 'quantity'"""
         cls.all = []
-        with open(CSV_FILE_NAME, newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                cls(row['name'], row['price'], row['quantity'])
+        try:
+            with open(path, newline='') as csvfile:
+                reader = csv.DictReader(csvfile)
+                try:
+                    for row in reader:
+                        cls(row['name'], row['price'], row['quantity'])
+                except KeyError:
+                    raise InstantiateCSVError("item.csv file is corrupted")
+        except FileNotFoundError:
+            raise FileNotFoundError("file items.csv does not exist or bad directory")
 
     @staticmethod
     def string_to_number(some_string):
