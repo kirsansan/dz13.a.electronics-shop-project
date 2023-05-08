@@ -58,26 +58,18 @@ def test_instantiate_from_csv():
         Item.all) == """[Item('Смартфон', 100, 1), Item('Ноутбук', 1000, 3), Item('Кабель', 10, 5), Item('Мышка', 50, 5), Item('Клавиатура', 75, 5)]"""
 
 
-def test_add_subclass(get_test_item, get_test_keyboard):
-
 def test_instantiate_from_bad_csv_file(get_non_exist_file_name, get_corrupted_file):
-    with pytest.raises(FileNotFoundError):
+    with pytest.raises(FileNotFoundError) as e:
         Item.instantiate_from_csv(path=get_non_exist_file_name)
-    try:
-        Item.instantiate_from_csv(path=get_non_exist_file_name)
-    except FileNotFoundError as e:
-        assert str(e) == 'file items.csv does not exist or bad directory'
-    with pytest.raises(InstantiateCSVError):
+    assert str(e) == 'file items.csv does not exist or bad directory'
+    with pytest.raises(InstantiateCSVError) as e:
         Item.instantiate_from_csv(path=get_corrupted_file)
-    try:
-        Item.instantiate_from_csv(path=get_corrupted_file)
-    except InstantiateCSVError as e:
-        assert str(e) == 'item.csv file is corrupted'
+    assert str(e) == 'item.csv file is corrupted'
     assert len(Item.all) == 0
     assert Item.all == []
 
 
-def test_add_subclass(get_test_item):
+def test_add_subclass(get_test_item, get_test_keyboard):
     assert get_test_item + get_test_item == 16
     with pytest.raises(ValueError) as e:
         get_test_item + 5
